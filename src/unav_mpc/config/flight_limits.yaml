@@ -1,0 +1,25 @@
+/**:
+  ros__parameters:
+    # ── Velocity limits ──────────────────────────────────────────────────
+    # These mirror PX4 offboard hard-clamps (set to match your PX4 params).
+    # PX4 applies these via PositionControl::_positionControl() regardless
+    # of what we send — so keeping them in sync avoids wasted setpoints.
+    #
+    #   max_vel_xy    ↔  MPC_XY_VEL_MAX   (22001_gz_x500_f1follow: 100.0 m/s)
+    #   max_vel_z_up  ↔  MPC_Z_VEL_MAX_UP (22001_gz_x500_f1follow:  20.0 m/s)
+    #   max_vel_z_dn  ↔  MPC_Z_VEL_MAX_DN (22001_gz_x500_f1follow:  20.0 m/s)
+    #
+    # At startup the MPC node also reads vxy_max / vz_max from the
+    # VehicleLocalPosition topic and uses the stricter of these two values.
+    max_vel_xy:   100.0   # m/s  — F1 top speed ~104 m/s
+    max_vel_z_up:  10.0   # m/s
+    max_vel_z_dn:  10.0   # m/s
+
+    # ── Acceleration limit ───────────────────────────────────────────────
+    # PX4 does NOT limit acceleration in offboard mode — we enforce this
+    # ourselves as a hard constraint in the MPC QP.
+    # Also used by the trajectory generator for braking ramp sizing.
+    #   max_acc   ↔  MPC_ACC_HOR_MAX (22001_gz_x500_f1follow: 60.0 m/s² = 6g)
+    #   max_jerk  ↔  MPC_JERK_MAX   (22001_gz_x500_f1follow: 100.0 m/s³)
+    max_acc:       15.0   # m/s²  — 6g lateral, F1 peak cornering
+    max_jerk:      10.0   # m/s³  — ~5g / 0.5 s brake application rate

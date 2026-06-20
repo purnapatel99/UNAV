@@ -1,0 +1,5 @@
+float64 n   # North (meters from PX4 local origin)
+float64 e   # East  (meters from PX4 local origin)
+float64 d   # Down  (meters from PX4 local origin)
+float64 yaw # heading (radians, NED convention, 0=North)
+float64 speed # desired speed at this point (m/s)

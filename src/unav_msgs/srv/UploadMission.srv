@@ -1,0 +1,12 @@
+# Upload a list of GPS waypoints as a mission.
+# Orchestrator converts to NED and commands MPC to follow.
+
+float64[] lat       # latitude  (degrees)
+float64[] lon       # longitude (degrees)
+float64[] alt       # altitude  (meters, AMSL)
+float64 cruise_speed  # desired cruise speed (m/s), default 5.0
+bool start_from_1st_wp  # if true, prepend drone's current pos only when farther than braking distance
+---
+bool success
+string message
+float64 total_length_m   # total path length after spline fitting
