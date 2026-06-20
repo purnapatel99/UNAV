@@ -1,19 +1,14 @@
 #!/bin/bash
-# Install UNAV dependencies: px4_msgs and PX4-Autopilot SITL
+# Install UNAV dependencies
 set -e
 
 UNAV_WS=$(cd "$(dirname "$0")/.." && pwd)
-PX4_MSGS_TAG="release/1.15"
 PX4_TAG="v1.15.4"
 
 echo "Setting up UNAV workspace at $UNAV_WS"
 
-# Clone px4_msgs into src/
-if [ ! -d "$UNAV_WS/src/px4_msgs" ]; then
-  git clone --branch $PX4_MSGS_TAG https://github.com/PX4/px4_msgs.git "$UNAV_WS/src/px4_msgs"
-else
-  echo "px4_msgs already present, skipping."
-fi
+# Init submodules (px4_msgs)
+git -C "$UNAV_WS" submodule update --init --recursive
 
 # Clone PX4-Autopilot for SITL (optional, large download)
 if [ "${INSTALL_PX4_SITL:-0}" = "1" ]; then
